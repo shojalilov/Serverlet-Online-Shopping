@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments :: html_head" />
+<body>
+<div th:replace="fragments :: html_navbar" />
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-6 offset-3">
+            <form method="post" th:action="@{/auth/login}" class="text-center">
+                <h1 class="display-4 py-3">Login Page</h1>
+
+                <div class="input-group">
+                    <div class="input-group-prepend btn-block">
+                        <span class="input-group-text">
+                            <i class="fa fa-user text-info"></i>
+                        </span>
+                        <input type="email" class="form-control" name="username" placeholder="john@doe.com">
+                    </div>
+                </div>
+
+                <div class="input-group my-3">
+                    <div class="input-group-prepend btn-block">
+                        <span class="input-group-text">
+                            <i class="fa fa-lock text-info"></i>
+                        </span>
+                        <input type="password" class="form-control" name="password" placeholder="password">
+                    </div>
+                </div>
+
+
+                <button type="reset" class="btn btn-outline-secondary">Cancel</button>
+                <button type="submit" class="btn btn-success">Sign in</button>
+            </form>
+
+            <a href="/auth/register" class="btn btn-secondary btn-block my-3">Create account</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

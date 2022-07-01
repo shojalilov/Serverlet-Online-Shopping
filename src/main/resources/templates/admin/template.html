@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="fragments :: html_head"/>
+<body>
+<div th:replace="fragments :: html_navbar"/>
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-2">
+            <h4 th:text="${user.getUsername()}"></h4>
+            <hr>
+            <a href="/admin/index" class="btn btn-outline-success btn-block">Home Page</a>
+            <a href="#" class="btn btn-outline-success btn-block">Menu 2</a>
+            <a href="#" class="btn btn-outline-success btn-block">Menu 3</a>
+            <a href="#" class="btn btn-outline-success btn-block">Menu 4</a>
+        </div>
+
+        <div class="col-10">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner" style="height: 500px;">
+                    <div class="carousel-item" th:each="attachment : ${template.attachments}" th:classappend="${template.attachments[0]['id'] == attachment.id ? 'active' : ''}" >
+                        <img th:src="@{${'/attachment/' + attachment.id}}" class="d-block w-100"
+                             style="height: 500px"/>
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+
+            <hr>
+
+            <button type="button" class="btn btn-primary btn-block my-1" data-toggle="modal"
+                    data-target="#exampleModal1">
+                Add Image
+            </button>
+            <h3 th:text="${template.name}"></h3>
+            <p><b>Price : </b><span th:text="${template.price}" th:remove="tag"></span></p>
+
+            <h4>Description</h4>
+            <p th:text="${template.description}" th:remove="tag"></p>
+
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel1">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="post" th:action="@{/template/add-image}" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" th:value="${template.id}" name="id">
+                    <input class="form-control-file mt-3" type="file" name="attachment">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Add Image</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</body>
+</html>
